@@ -1,0 +1,13 @@
+---
+import { site } from '../data/site';
+const { a, b } = site.couple;
+---
+<!-- Sobre de entrada -->
+<div id="gate" role="dialog" aria-label={`Invitación de ${a} y ${b}`}>
+  <div class="gate-top"><p class="label both">{a} &amp; {b} · {site.dateShort}</p></div>
+  <button class="envelope" type="button" id="openBtn" aria-label="Abrir la invitación">
+    <img src="/img/carta.webp" alt="" width="1000" height="653" fetchpriority="high">
+    <span class="seal-glow" aria-hidden="true"></span>
+    <span class="cta" aria-hidden="true">Tocá el sobre para abrirlo</span>
+  </button>
+</div>

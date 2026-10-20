@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import Alias from './Alias.astro';
+import { site } from '../data/site';
+---
+<div class="modal" id="gifts" hidden role="dialog" aria-modal="true" aria-labelledby="gifts-t">
+  <div class="modal-box arch">
+    <button class="x" type="button" data-close aria-label="Cerrar"><Icon name="close" /></button>
+    <p class="label both" style="color:var(--moss)">Algunas ideas</p>
+    <h2 class="script" id="gifts-t">Mesa de regalos</h2>
+    <div class="ideas" id="ideas">{site.gifts.map((g) => <span>{g}</span>)}</div>
+    <p style="color:var(--muted);max-width:40ch;margin-top:8px">Para nuestro futuro hogar o para la luna de miel, te compartimos un alias:</p>
+    <Alias label="Alias" style="margin-top:0" />
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -1,27 +1,59 @@
-# InvitacionValenLauti
+# Invitación digital · Violeta & León
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+Invitación de boda en Astro (sitio estático). Diseño: Rodri Rodríguez · sistema rr.
+Todos los nombres, fechas, números y datos son de ejemplo.
 
-## Development server
+## Comandos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # genera dist/
+npm run preview   # sirve dist/ para probar el build
+```
 
-## Code scaffolding
+Requiere Node 22.22 o superior.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Personalizar para otro evento
 
-## Build
+Todo lo que cambia de un evento a otro está en **`src/data/site.ts`**:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- nombres, fecha y hora (la cuenta regresiva y el calendario salen solos);
+- lugar, horario y link de Google Maps;
+- fotos del carrusel y de la portada;
+- WhatsApp para confirmar y alias para transferir;
+- tramos de precio (el vigente se marca solo según la fecha);
+- itinerario, ideas de regalos y código de vestimenta;
+- canción de fondo.
 
-## Running unit tests
+Fotos: reemplazá los archivos en `public/img/` (`foto-1.webp`, `foto-2.webp`, `foto-3.webp`, `foto-portada.webp`). Usá formato vertical 3:4, de unos 760×1013 px. La foto de portada se recorta en círculo.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Música: poné `cancion.mp3` en `public/audio/`.
 
-## Running end-to-end tests
+Antes de publicar, cambiá `site` en `astro.config.mjs` por el dominio real; se usa para la imagen al compartir el link (`public/og.jpg`).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Estructura
 
-## Further help
+```
+src/
+  data/site.ts          datos del evento
+  layouts/Base.astro    <head>, fuentes, metadatos
+  pages/index.astro     página completa
+  pages/404.astro
+  components/           Gate (sobre), Dock, Cover, Welcome, Fiesta, Itinerary,
+                        Gifts, Rsvp, Closing, Footer, GiftsModal, Alias, Icon, MusicButton
+  scripts/main.ts       sobre, música, carrusel, precios, RSVP por WhatsApp, cuenta regresiva
+  styles/global.css     estilos
+public/
+  img/                  imágenes en webp
+  audio/                canción
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Publicar
+
+Es un sitio 100% estático: sirve en Cloudflare Pages, Netlify o Vercel.
+
+- Comando de build: `npm run build`
+- Carpeta de salida: `dist`
+
+`robots.txt` y la etiqueta `noindex` evitan que la invitación aparezca en buscadores. Para cambiarlo, editá `noindex` en `site.ts`.

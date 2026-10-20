@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+const diets = [
+  { value: 'Vegetariano/a' },
+  { value: 'Vegano/a' },
+  { value: 'Celíaco/a' },
+  { value: 'Alergia', detail: '¿A qué? ¿Quién?' },
+  { value: 'Otro', detail: 'Contanos cuál' },
+];
+---
+<!-- Confirmación -->
+<section class="sec rsvp" id="confirmar" aria-labelledby="rsvp-t">
+  <div class="wrap">
+    <div class="sec-head"><p class="label both rv">Confirmación</p><h2 class="script rv" id="rsvp-t">¿Nos acompañás?</h2>
+      <p class="rv">Para preparar cada detalle y que todos estén cómodos, pedimos confirmar presencia.</p>
+      <span class="deadline rv"><Icon name="calendar" />{site.rsvpDeadline}</span></div>
+    <div class="form-card arch rv">
+      <form id="rsvp" novalidate>
+        <div class="field"><label for="guests">Nombres (incluidos niños)</label><textarea id="guests" placeholder="Ej.: Martina Gómez, Juan Pérez, Sofi (5 años)"></textarea><span class="hint">Uno por renglón o separados por coma.</span></div>
+        <div class="field"><span class="lb" id="att-l">¿Vienen?</span>
+          <div class="att" role="radiogroup" aria-labelledby="att-l">
+            <label><input type="radio" name="att" value="si"><span><i aria-hidden="true"></i>Voy / Vamos</span></label>
+            <label><input type="radio" name="att" value="no"><span><i aria-hidden="true"></i>Lamentablemente no podré asistir</span></label>
+          </div></div>
+        <div class="field" id="dietF"><span class="lb" id="diet-l">¿Alguna restricción o preferencia alimentaria?</span>
+          <div class="diet" role="group" aria-labelledby="diet-l">
+            {diets.map((x) => <label><input type="checkbox" value={x.value} data-detail={x.detail}><span>{x.value}</span></label>)}
+          </div>
+          <div class="details" id="details"></div></div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn btn--forest" type="submit" style="align-self:center">Enviar por WhatsApp <span class="arr" aria-hidden="true">→</span></button>
+      </form>
+      <div class="thanks" id="thanks" hidden role="status">
+        <Icon name="done" class="big" />
+        <p class="script" id="thanksT">¡Gracias por confirmar!</p>
+        <p style="color:var(--muted)">Abrí WhatsApp y tocá <b>Enviar</b> para que nos llegue tu respuesta.</p>
+        <a class="btn btn--forest" id="waLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+        <button class="btn btn--ghost" type="button" id="again" style="color:var(--ink2)">Editar respuesta</button>
+      </div>
+    </div>
+  </div>
+</section>

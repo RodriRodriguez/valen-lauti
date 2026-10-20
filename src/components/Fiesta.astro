@@ -1,0 +1,37 @@
+---
+import Alias from './Alias.astro';
+import { site } from '../data/site';
+const { a, b } = site.couple;
+---
+<!-- La fiesta -->
+<section class="sec fiesta" id="fiesta" aria-labelledby="fiesta-t">
+  <div class="wrap">
+    <div class="sec-head"><p class="label both rv">La fiesta</p><h2 class="script rv" id="fiesta-t">Ubicación</h2></div>
+    <div class="loc">
+      <div class="loc-card arch rv">
+        <p class="label" style="color:var(--moss)">Horario de nuestra fiesta</p>
+        <p class="when">{site.venue.hours}</p>
+        <p class="venue">{site.venue.name}</p>
+        <p class="addr">{site.venue.address}</p>
+        <img class="sketch" src="/img/mapa.webp" alt="Dibujo de la estancia" width="820" height="547" loading="lazy">
+        <a class="btn btn--forest" href={site.venue.mapsUrl} target="_blank" rel="noopener">Ver ubicación <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <div class="carousel rv" style="--d:.1s" aria-roledescription="carrusel" aria-label={`Fotos de ${a} y ${b}`}>
+        <div class="frame" id="frame">
+          {site.photos.map((p, i) => <img class={i === 0 ? 'on' : undefined} src={p.src} alt={p.alt} data-photo={i + 1} width="760" height="1013" loading={i === 0 ? undefined : 'lazy'}>)}
+        </div>
+        <img class="doves" src="/img/alas.webp" alt="" width="560" height="420">
+        <div class="dots" id="dots">{site.photos.map((_, i) => <button type="button" aria-current={i === 0 ? 'true' : undefined} aria-label={`Foto ${i + 1}`}><i></i></button>)}</div>
+      </div>
+    </div>
+
+    <div class="prices" id="precios">
+      <div class="sec-head"><p class="label both rv">Tarjetas</p><h2 class="title rv" style="font-size:clamp(2.4rem,5vw,3.4rem)">Precios</h2><p class="lead rv" style="color:var(--muted);max-width:52ch">Reservá tu lugar con anticipación: el valor sube a medida que se acerca la fecha.</p></div>
+      <div class="tiers" id="tiers">
+        {site.tiers.map((t, i) => <article class="tier rv" style={`--d:${i * .08}s`} data-from={t.from} data-to={t.to}><p class="range">{t.range}</p><p class="amount">{t.amount}</p><p class="kid">Niños de 3 a 10 años: {t.kid}</p></article>)}
+      </div>
+      <div class="notes rv">{site.priceNotes.map((n) => <span>{n}</span>)}</div>
+      <Alias label="Alias para transferir" class="rv" />
+    </div>
+  </div>
+</section>

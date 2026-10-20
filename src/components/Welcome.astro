@@ -1,0 +1,35 @@
+---
+import { site } from '../data/site';
+const { year, month, day } = site.date;
+// Calendario del mes de la boda (semana empieza en lunes).
+const first = (new Date(year, month - 1, 1).getDay() + 6) % 7;
+const days = new Date(year, month, 0).getDate();
+const cells: (number | null)[] = [...Array(first).fill(null), ...Array.from({ length: days }, (_, i) => i + 1)];
+const weeks: (number | null)[][] = [];
+for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+---
+<!-- Bienvenida -->
+<section class="sec welcome" id="bienvenida" aria-labelledby="greet">
+  <div class="wrap">
+    <div class="welcome-text">
+      <img class="ornament rv" src="/img/ornament.webp" alt="" style="margin:0;width:min(260px,70%);filter:brightness(0) invert(.92) sepia(.3) saturate(.6)" width="600" height="124">
+      <h2 class="script greet rv" id="greet">¡Querida familia y amigos!</h2>
+      <p class="lead rv" style="--d:.08s">Estamos contentos de invitarlos a nuestra celebración como <strong>{site.familyName}</strong>. Acompáñennos a vivir uno de los días más importantes de nuestras vidas: <strong>¡nuestra boda!</strong></p>
+      <figure class="verse rv" style="--d:.14s"><p>“{site.verse.text}”</p><cite>{site.verse.cite}</cite></figure>
+    </div>
+    <div class="cal-scene rv" style="--d:.1s">
+      <div class="cal arch">
+        <div class="month">{site.monthName}</div>
+        <div class="yr">{year}</div>
+        <table aria-label={`Calendario de ${site.monthName.toLowerCase()} de ${year}, el día ${day} marcado`}><thead><tr><th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sá</th><th>Do</th></tr></thead><tbody id="calBody">
+          {weeks.map((w) => <tr>{w.map((d) => d === null ? <td></td> : d === day
+            ? <td class="day7"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#8a2a22"/></svg><span>{d}</span></td>
+            : <td>{d}</td>)}</tr>)}
+        </tbody></table>
+        <div class="when"><b>{site.dateLong.split(' ')[0]} {day} · {site.timeLabel}</b><span>Guardá la fecha</span></div>
+      </div>
+      <a class="seal" href="#itinerario"><img src="/img/sello.webp" alt="" width="142" height="161"><span>Ver itinerario</span></a>
+      <img class="lily" src="/img/flor.webp" alt="" width="460" height="704">
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+---
+import Alias from './Alias.astro';
+import { site } from '../data/site';
+const n = site.giftsPreview;
+const d = site.dress;
+---
+<!-- Regalos y vestimenta -->
+<section class="sec gifts" id="regalos" aria-label="Regalos y vestimenta">
+  <div class="wrap">
+    <div class="grid">
+      <article class="card rv">
+        <span class="gift-art" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13M12 7c-2-3-6-3-5 0M12 7c2-3 6-3 5 0"/></svg></span>
+        <h2 class="script">Mesa de regalos</h2>
+        <p class="lead">Celebrar este día junto a ustedes es un regalo para nosotros. Si quieren acompañarnos con un detalle, les dejamos algunas ideas.</p>
+        <p class="label" style="color:var(--moss);margin-top:4px">Algunas ideas</p>
+        <div class="ideas mini" id="ideasMini">{site.gifts.slice(0, n).map((g) => <span>{g}</span>)}<span class="more" role="button" tabindex="0" id="moreIdeas">+{site.gifts.length - n} ideas más</span></div>
+        <Alias label="Para el hogar o la luna de miel" style="margin:8px 0 0" />
+        <button class="btn btn--forest" type="button" id="giftsBtn">Ver todas las ideas <span class="arr" aria-hidden="true">→</span></button>
+      </article>
+      <article class="card dress rv" style="--d:.08s" id="vestimenta">
+        <img class="florD" src="/img/florDress.webp" alt="" width="460" height="374" loading="lazy">
+        <p class="label" style="color:var(--moss)">Código de vestimenta</p>
+        <h2 class="script">Vestimenta</h2>
+        <div class="styles">{d.styles.map((s) => <span class="chip">{s}</span>)}</div>
+        <div class="swatches">
+          <div class="sw-row"><small>Paleta sugerida</small>{d.palette.map((c) => <span class="sw" style={`background:${c.color}`} title={c.name}></span>)}</div>
+          <div class="sw-row"><small>Colores reservados</small>{d.reserved.map((c) => <span class="sw no" style={`background:${c.color}`} title={c.name}></span>)}</div>
+        </div>
+        <p style="font-size:.92rem;color:var(--muted);max-width:42ch">{d.note}</p>
+        <img class="people" src="/img/gente.webp" alt="Ilustración de invitados vestidos con la paleta sugerida" width="1000" height="360" loading="lazy">
+      </article>
+    </div>
+  </div>
+</section>

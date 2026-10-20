@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import Gate from '../components/Gate.astro';
+import MusicButton from '../components/MusicButton.astro';
+import Dock from '../components/Dock.astro';
+import Cover from '../components/Cover.astro';
+import Welcome from '../components/Welcome.astro';
+import Fiesta from '../components/Fiesta.astro';
+import Itinerary from '../components/Itinerary.astro';
+import Gifts from '../components/Gifts.astro';
+import Rsvp from '../components/Rsvp.astro';
+import Closing from '../components/Closing.astro';
+import Footer from '../components/Footer.astro';
+import GiftsModal from '../components/GiftsModal.astro';
+---
+<Base>
+  <Gate />
+  <MusicButton />
+  <Dock />
+  <main id="main">
+    <Cover />
+    <Welcome />
+    <Fiesta />
+    <Itinerary />
+    <Gifts />
+    <Rsvp />
+    <Closing />
+  </main>
+  <Footer />
+  <GiftsModal />
+  <script>
+    import '../scripts/main';
+  </script>
+</Base>

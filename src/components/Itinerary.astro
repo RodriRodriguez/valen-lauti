@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+---
+<!-- Itinerario -->
+<section class="sec iti" id="itinerario" aria-labelledby="iti-t">
+  <div class="wrap">
+    <div class="sec-head"><p class="label both rv">{site.dateLong}</p><h2 class="script rv" id="iti-t">Itinerario</h2></div>
+    <ol class="timeline" id="timeline">
+      {site.itinerary.map((s, i) => <li class="stop rv" style={`--d:${i * .07}s`}><span class="ic"><img src={`/img/${s.icon}.webp`} alt="" loading="lazy"></span><span class="tx"><time>{s.time}</time><span>{s.title}</span></span></li>)}
+    </ol>
+  </div>
+</section>

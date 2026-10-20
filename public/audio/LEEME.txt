@@ -1,0 +1,3 @@
+Poné acá la canción de fondo con el nombre: cancion.mp3
+(La ruta se cambia en src/data/site.ts → song.)
+Usá una canción con permiso de uso: la invitación es una página pública.

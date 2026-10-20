@@ -1,0 +1,20 @@
+---
+import { site } from '../data/site';
+const { a, b } = site.couple;
+const [dd, mm, yyyy] = site.dateShort.split('.');
+---
+<!-- Portada -->
+<section class="cover" id="inicio" aria-labelledby="names">
+  <div class="bg" id="coverBg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cover-text">
+      <p class="label rv">Nos casamos</p>
+      <p class="date rv" style="--d:.08s"><span>{dd}</span><i aria-hidden="true"></i><span>{mm}</span><i aria-hidden="true"></i><span>{yyyy}</span></p>
+      <h1 class="names rv" id="names" style="--d:.16s">{a}<span class="amp">&amp; {b}</span></h1>
+      <p class="place rv" style="--d:.24s">{site.dateLong} · {site.venue.name}</p>
+      <a class="btn btn--paper rv" style="--d:.32s" href="#confirmar">Confirmar asistencia <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <figure class="cover-photo rv" style="--d:.2s;margin:0"><span class="doily-photo"><img src={site.coverPhoto.src} alt={site.coverPhoto.alt} data-photo="portada"></span><img class="doily" src="/img/doily.webp" alt="" width="720" height="720"></figure>
+  </div>
+  <a class="cue" href="#bienvenida" aria-label="Bajar"><span class="label" style="font-size:.6rem">Bajá</span><i></i></a>
+</section>

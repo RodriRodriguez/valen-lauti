@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+const items = [
+  { id: 'inicio', icon: 'heart', label: 'Inicio' },
+  { id: 'fiesta', icon: 'pin', label: 'Fiesta' },
+  { id: 'itinerario', icon: 'clock', label: 'Itinerario' },
+  { id: 'regalos', icon: 'gift', label: 'Regalos' },
+  { id: 'confirmar', icon: 'check', label: 'Confirmar' },
+] as const;
+---
+<nav class="dock" id="dock" aria-label="Secciones">
+  {items.map((it) => <a href={`#${it.id}`} data-spy={it.id}><Icon name={it.icon} /><span>{it.label}</span></a>)}
+</nav>

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title={`Página no encontrada · ${site.couple.a} & ${site.couple.b}`}>
+  <main class="sec closing" style="min-height:100svh;display:grid;place-items:center">
+    <div class="wrap" style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <p class="label both" style="color:var(--moss)">Error 404</p>
+      <h1 class="script big" style="margin:0">Esta página no existe</h1>
+      <p style="color:var(--muted);max-width:40ch">Puede que el enlace haya cambiado. Volvé a la invitación para seguir.</p>
+      <a class="btn btn--forest" href="/">Volver a la invitación <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </main>
+</Base>

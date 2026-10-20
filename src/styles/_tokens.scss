@@ -1,0 +1,43 @@
+// Tokens de diseño: paleta de colores, espaciados, radios, sombras,
+// breakpoints y z-index. Todo como custom properties / variables SCSS.
+//
+// Los colores se definen como custom properties en :root para poder leerlos
+// desde cualquier componente (estilos con encapsulación) sin tener que
+// importar este archivo. Los breakpoints, en cambio, viven como mapa de
+// Sass porque los usan los mixins en tiempo de compilación.
+
+:root {
+  // Paleta — papel, tinta y lacre (tomada de public/img/envelope/carta.png)
+  --color-paper: #f4ead8;
+  --color-paper-deep: #e7d9bc;
+  --color-ink: #2b2a22;
+  --color-ink-olive: #55552e;
+  --color-forest: #161d12;
+  --color-moss: #606a4a;
+  --color-overlay: rgba(8, 12, 6, 0.32);
+
+  // Espaciados
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  // Radios y sombras
+  --radius-card: 4px;
+  --shadow-card:
+    0 30px 60px -20px rgba(15, 20, 10, 0.45),
+    0 10px 22px -10px rgba(15, 20, 10, 0.35);
+
+  // Z-index
+  --z-gate: 100;
+}
+
+// Breakpoints (min-width), usados por el mixin `mq` de _mixins.scss
+$breakpoints: (
+  sm: 400px,
+  md: 640px,
+  lg: 1024px,
+  xl: 1440px,
+);

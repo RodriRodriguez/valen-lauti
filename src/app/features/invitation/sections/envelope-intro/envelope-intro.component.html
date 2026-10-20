@@ -1,0 +1,19 @@
+<app-section-shell backgroundImage="/img/photos/fondo.jpg">
+  <button
+    type="button"
+    class="envelope"
+    [class.is-opening]="isOpening()"
+    aria-label="Abrir la invitación"
+    [disabled]="isOpening()"
+    (click)="open()"
+  >
+    <img
+      class="envelope__flap"
+      src="/img/envelope/carta.png"
+      width="1570"
+      height="840"
+      alt=""
+    />
+    <span class="envelope__cta">Presiona el sobre<br />para abrirlo</span>
+  </button>
+</app-section-shell>

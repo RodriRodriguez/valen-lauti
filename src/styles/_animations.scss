@@ -1,0 +1,25 @@
+// Animaciones globales: @keyframes (fade, reveal, brillo del lacre, apertura
+// del sobre) y clases utilitarias de transición.
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Balanceo suave e infinito, usado para invitar a interactuar (ej. el sobre
+// en envelope-intro) sin ser una animación agresiva.
+@keyframes idle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}

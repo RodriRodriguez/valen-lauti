@@ -1,0 +1,140 @@
+@use "../../../../../styles/mixins" as *;
+@use "../../../../../styles/typography" as *;
+
+// El host es el gate a pantalla completa: cubre todo mientras el sobre no
+// se presionó, y se desvanece para revelar el resto de la invitación.
+// El host es el gate a pantalla completa: cubre todo mientras el sobre no
+// se presionó, y se desvanece para revelar el resto de la invitación. El
+// fondo y el centrado los resuelve <app-section-shell>; acá solo el gate.
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-gate);
+  // Respaldo sólido: si fondo.jpg todavía no terminó de decodificar,
+  // esto ya tapa todo desde el primer frame (nada de la sección de
+  // abajo se puede llegar a asomar mientras la foto carga).
+  background: var(--color-forest);
+  opacity: 1;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.is-opened {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+  }
+
+  // Recién ahora se saca del flujo de "capas": deja de bloquear clics y
+  // lectores de pantalla en el contenido de abajo.
+  &.is-hidden {
+    visibility: hidden;
+  }
+}
+
+.envelope {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: min(90vw, 420px);
+  aspect-ratio: 874 / 674;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  // La solapa (.envelope__flap) gira en 3D dentro de este perspective al
+  // abrir — sin esto, rotateX se ve plano/sin volumen.
+  perspective: 1400px;
+  animation: fade-in-up 0.9s ease both;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  @include motion-safe {
+    animation:
+      fade-in-up 0.9s ease both,
+      idle-float 4.5s ease-in-out 0.9s infinite;
+  }
+
+  &:hover {
+    box-shadow:
+      0 36px 70px -20px rgba(15, 20, 10, 0.5),
+      0 14px 26px -10px rgba(15, 20, 10, 0.38);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-paper);
+    outline-offset: 4px;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  // Congela el balanceo idle apenas se presiona, para que la solapa se
+  // abra en paz en vez de seguir flotando de fondo.
+  &.is-opening {
+    animation-play-state: paused;
+  }
+
+  @include mq(md) {
+    width: min(60vw, 460px);
+  }
+}
+
+.envelope__flap {
+  display: block;
+  width: 100%;
+  height: auto;
+  // Bisagra arriba, como una solapa real: gira hacia atrás desde el
+  // borde superior del sobre, no desde su propio centro.
+  transform-origin: top center;
+  backface-visibility: hidden;
+
+  .envelope.is-opening & {
+    animation: flap-open 0.75s cubic-bezier(0.45, 0, 0.4, 1) both;
+  }
+}
+
+.envelope__cta {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--space-3) var(--space-4);
+  margin-top: -6%;
+  font-family: $font-script;
+  color: var(--color-ink-olive);
+  font-size: clamp(1.15rem, 6.5vw, 1.6rem);
+  line-height: 1.3;
+  transition: opacity 0.25s ease;
+
+  .envelope.is-opening & {
+    opacity: 0;
+  }
+}
+
+// El @keyframes idle-float mueve el sobre; en pantallas chicas alcanza y
+// sobra con eso, así que no hace falta un ajuste aparte por breakpoint.
+
+// La solapa se levanta y cae hacia atrás (como si se abriera de verdad),
+// alejándose de cámara (scale) y desvaneciéndose cerca del final, justo
+// antes de quedar de canto — evita el momento raro de ver el "dorso" de
+// una imagen que no tiene arte para esa cara.
+@keyframes flap-open {
+  0% {
+    transform: rotateX(0deg) translateZ(0);
+    opacity: 1;
+  }
+  55% {
+    transform: rotateX(-110deg) translateZ(20px);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(-155deg) translateZ(40px);
+    opacity: 0;
+  }
+}

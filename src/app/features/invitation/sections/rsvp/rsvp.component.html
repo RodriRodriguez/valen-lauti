@@ -1,0 +1,71 @@
+<section class="rsvp">
+  <div class="rsvp__card">
+    <app-ornament-divider class="rsvp__ornament" />
+
+    <p class="rsvp__title">Confirmación</p>
+    <p class="rsvp__intro">{{ intro }}</p>
+
+    @if (!submitted()) {
+      <form class="rsvp__form" #form="ngForm" novalidate (ngSubmit)="onSubmit(form)">
+        <div class="rsvp__field">
+          <label class="rsvp__label" for="rsvp-names">{{ namesLabel }}</label>
+          <textarea
+            id="rsvp-names"
+            class="rsvp__input rsvp__input--names"
+            name="names"
+            rows="2"
+            required
+            [placeholder]="namesPlaceholder"
+            [(ngModel)]="model.names"
+          ></textarea>
+        </div>
+
+        <div class="rsvp__field rsvp__field--attendance">
+          <div class="rsvp__radios" role="radiogroup" aria-label="Asistencia">
+            @for (option of attendanceOptions; track option) {
+              <label class="rsvp__radio">
+                <input type="radio" name="attendance" [value]="option" required [(ngModel)]="model.attendance" (ngModelChange)="onAttendanceChange()" />
+                <span>{{ option }}</span>
+              </label>
+            }
+          </div>
+
+          <img class="rsvp__candles" src="/img/photos/velas.webp" alt="" aria-hidden="true" width="139" height="249" />
+        </div>
+
+        <fieldset class="rsvp__field rsvp__dietary" [disabled]="isDeclining()">
+          <legend class="rsvp__label">
+            {{ dietaryQuestion }}
+            <span class="rsvp__optional">Opcional: si no tienen ninguna, no marquen nada.</span>
+          </legend>
+
+          <div class="rsvp__radios">
+            @for (option of dietaryOptions; track option.label) {
+              <label class="rsvp__radio">
+                <input type="checkbox" [name]="'dietary-' + option.label" [(ngModel)]="model.dietary[option.label]" />
+                <span>{{ option.label }}</span>
+              </label>
+
+              @if (option.detailPlaceholder && model.dietary[option.label]) {
+                <input
+                  class="rsvp__input rsvp__input--detail"
+                  type="text"
+                  [name]="'dietary-detail-' + option.label"
+                  [attr.aria-label]="option.label + ': detalle'"
+                  [placeholder]="option.detailPlaceholder"
+                  [(ngModel)]="model.dietaryDetails[option.label]"
+                />
+              }
+            }
+          </div>
+        </fieldset>
+
+        <button type="submit" class="rsvp__submit" [disabled]="!canSubmit()">{{ submitLabel }}</button>
+
+        <p class="rsvp__warning">{{ warningNote }}</p>
+      </form>
+    } @else {
+      <p class="rsvp__thanks">{{ thanksMessage() }}</p>
+    }
+  </div>
+</section>

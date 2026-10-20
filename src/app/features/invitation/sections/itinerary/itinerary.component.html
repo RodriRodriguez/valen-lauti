@@ -1,0 +1,23 @@
+<section class="itinerary">
+  <div class="itinerary__card" style="padding-top: 10px;">
+    <p class="itinerary__title" style="margin-bottom: 0px;">Itinerario</p>
+
+    <ul class="itinerary__list" #list>
+      <svg class="itinerary__heart" [style.top.%]="heartProgress() * 100" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M12 20.5s-7.5-4.6-10-9.2C.4 8 2 4.8 5.2 4.2c2-.4 3.9.5 5 2.2 1.1-1.7 3-2.6 5-2.2 3.2.6 4.8 3.8 3.2 7.1-2.5 4.6-8.4 9.2-8.4 9.2Z"
+        />
+      </svg>
+
+      @for (item of items; track item.title) {
+        <li class="itinerary__item">
+          <img class="itinerary__icon" [src]="item.icon" alt="" />
+          <div class="itinerary__text">
+            <p class="itinerary__item-title">{{ item.title }}</p>
+            <p class="itinerary__item-time">{{ item.time }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

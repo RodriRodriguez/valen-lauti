@@ -1,0 +1,11 @@
+<div
+  class="section-shell__bg"
+  [style.background-image]="
+    'linear-gradient(var(--color-overlay), var(--color-overlay)), url(' + backgroundImage + ')'
+  "
+  aria-hidden="true"
+></div>
+
+<div class="section-shell__content">
+  <ng-content></ng-content>
+</div>

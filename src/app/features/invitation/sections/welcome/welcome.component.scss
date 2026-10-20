@@ -1,0 +1,206 @@
+@use "../../../../../styles/mixins" as *;
+@use "../../../../../styles/typography" as *;
+
+:host {
+  display: block;
+}
+
+.welcome {
+  position: relative;
+  background: var(--color-moss);
+  overflow: hidden;
+}
+
+.welcome__ornament {
+  max-width: 22rem;
+  margin: 0 auto;
+  opacity: 0.85;
+}
+
+.welcome__greeting {
+  margin: var(--space-4) auto 0;
+  max-width: 24rem;
+  font-family: $font-script;
+  color: var(--color-paper);
+  text-align: center;
+  line-height: 1.15;
+  font-size: clamp(1.9rem, 8vw, 2.5rem);
+  white-space: pre-line;
+  animation: fade-in-up 0.9s ease both;
+}
+
+.welcome__message {
+  margin: var(--space-4) auto 0;
+  max-width: 28rem;
+  font-family: $font-serif;
+  color: var(--color-paper);
+  text-align: center;
+  line-height: 1.6;
+  font-size: 20px;
+  padding: 20px;
+  white-space: pre-line;
+  animation: fade-in-up 0.9s ease 0.1s both;
+}
+
+// Versículo: más chico y en cursiva que el párrafo, para que se lea como
+// cita y no como parte del texto de bienvenida.
+.welcome__verse {
+  margin: 0 auto var(--space-4);
+  max-width: 24rem;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--color-paper);
+  animation: fade-in-up 0.9s ease 0.2s both;
+}
+
+.welcome__verse-text {
+  margin: 0;
+  font-family: $font-serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.welcome__verse-reference {
+  margin-top: 0.5em;
+  font-family: $font-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
+
+.welcome__scene {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  margin: var(--space-6) auto 0;
+}
+
+// El sobre son dos PNG apilados en flujo normal (así el alto total es el
+// que realmente ocupan, no uno adivinado): la solapa con la foto, y la
+// parte de abajo con la muesca en V, acopladas por la costura calculada
+// a partir de los px reales de cada asset (ver comentario más abajo).
+// El calendario y el lacre van *absolutos* adentro de este mismo stack,
+// más angostos que el sobre, para que el papel del sobre se vea de marco
+// alrededor — eso es lo que "el calendario sale de la tarjeta" pide.
+.welcome__envelope-stack {
+  position: relative;
+  width: 100%;
+}
+
+.welcome__envelope {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+// El borde inferior opaco de fondo_calendar.png (662/664px) tiene que
+// medir lo mismo que el borde superior opaco de sobre_abajo.png
+// (1604/1644px) → sobre_abajo va ~102.2% más ancho, y sube con un
+// margin-top negativo para "comerse" el margen transparente de su V.
+.welcome__envelope-bottom {
+  z-index: 20;
+  display: block;
+  width: 102.2%;
+  height: auto;
+  margin-top: -11.2%;
+  margin-inline: -1.1%;
+  // "bottom" sube la imagen en pantalla, pero al ser position:relative su
+  // espacio original en el flujo queda reservado igual — sin el
+  // margin-bottom negativo (mismo valor) ese espacio quedaba como un
+  // bloque verde vacío después del sobre, antes de "Precios".
+  position: relative;
+  bottom: 255px;
+  margin-bottom: -255px;
+}
+
+.welcome__calendar {
+  position: absolute;
+  top: 9%;
+  left: 20%;
+  width: 60%;
+  height: auto;
+  filter: drop-shadow(0 18px 26px rgba(10, 14, 8, 0.4));
+}
+
+.welcome__flower {
+  position: absolute;
+  top: -8rem;
+  left: -30%;
+  width: 84%;
+  height: auto;
+  filter: drop-shadow(0 12px 18px rgba(10, 14, 8, 0.3));
+}
+
+// El sello y el CTA caen justo donde la muesca en V de sobre_abajo
+// todavía está "abierta" (transparente), así que sin esto quedarían
+// sobre el verde crudo — itinerario.webp es un verde oliva apagado,
+// prácticamente invisible ahí. Un parche de papel suave (sin bordes
+// geométricos duros, para que no lea como un sticker pegado) les da
+// dónde apoyarse, como si fuera el propio papel del sobre.
+.welcome__paper-patch {
+  position: absolute;
+  top: 49%;
+  left: 20%;
+  width: 60%;
+  height: 26%;
+  background: var(--color-paper);
+  // Trapecio: mismo ancho que el calendario arriba, se angosta hacia el
+  // lacre abajo — sigue la línea del sobre en vez de leer como sticker.
+  clip-path: polygon(2% 0, 98% 0, 84% 100%, 16% 100%);
+  box-shadow: 0 10px 18px -4px rgba(10, 14, 8, 0.3);
+}
+
+.welcome__cta {
+  position: absolute;
+  inset: 0;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 50;
+  bottom: 170px;
+
+  &:focus-visible .welcome__seal {
+    outline: 2px solid var(--color-ink-olive);
+    outline-offset: 4px;
+    border-radius: 50%;
+  }
+}
+
+.welcome__seal {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  width: 30%;
+  height: auto;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 6px 10px rgba(10, 14, 8, 0.5));
+  transition: transform 0.2s ease;
+
+  .welcome__cta:hover & {
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+.welcome__click {
+  position: absolute;
+  top: 70%;
+  left: 75%;
+  width: 10%;
+  height: auto;
+  filter: drop-shadow(0 1px 3px rgba(10, 14, 8, 0.4));
+
+  @include motion-safe {
+    animation: idle-float 2.4s ease-in-out infinite;
+  }
+}
+
+.welcome__cta-text {
+  position: absolute;
+  top: 72%;
+  left: 26%;
+  width: 42%;
+  height: auto;
+}

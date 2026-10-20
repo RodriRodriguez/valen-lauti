@@ -1,0 +1,32 @@
+<section class="welcome">
+  <app-ornament-divider class="welcome__ornament" />
+
+  <p class="welcome__greeting">{{ greeting }}</p>
+  <p class="welcome__message">{{ message }}</p>
+
+  <figure class="welcome__verse">
+    <blockquote class="welcome__verse-text">{{ verse }}</blockquote>
+    <figcaption class="welcome__verse-reference">{{ verseReference }}</figcaption>
+  </figure>
+
+  <app-ornament-divider class="welcome__ornament" />
+
+  <div class="welcome__scene">
+    <div class="welcome__envelope-stack">
+      <img class="welcome__envelope" src="/img/photos/fondo_calendar.png" alt="" width="664" height="788" />
+      <img class="welcome__envelope-bottom" src="/img/photos/sobre_abajo.png" alt="" width="1644" height="1376" />
+
+      <img class="welcome__calendar" src="/img/photos/calendar.png" alt="Calendario" width="828" height="1156" />
+
+      <button
+        type="button"
+        class="welcome__cta"
+        aria-label="Ir al itinerario y la ubicación de la boda"
+      >
+        <img class="welcome__seal" src="/img/photos/boton.webp" alt="" />
+      </button>
+    </div>
+
+    <img class="welcome__flower" src="/img/photos/flor.png" alt="" width="1020" height="1562" />
+  </div>
+</section>

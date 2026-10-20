@@ -1,0 +1,35 @@
+:host {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: max(env(safe-area-inset-top, 0px), var(--space-4))
+    max(env(safe-area-inset-right, 0px), var(--space-4))
+    max(env(safe-area-inset-bottom, 0px), var(--space-4))
+    max(env(safe-area-inset-left, 0px), var(--space-4));
+}
+
+.section-shell__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-position: center 40%;
+  background-size: cover;
+}
+
+.section-shell__content {
+  position: relative;
+  width: 100%;
+  // Sin esto, al ser flex item del :host (fila), su min-width: auto por
+  // defecto no lo deja achicarse más allá del contenido más ancho que
+  // tenga adentro (ej. un nombre largo sin cortar) e ignora el 100%.
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
